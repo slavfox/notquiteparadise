@@ -12,6 +12,14 @@ scripts.engine.core.constants module
    :undoc-members:
    :show-inheritance:
 
+scripts.engine.core.data module
+-------------------------------
+
+.. automodule:: scripts.engine.core.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.engine.core.definitions module
 --------------------------------------
 
@@ -28,14 +36,13 @@ scripts.engine.core.extend\_json module
    :undoc-members:
    :show-inheritance:
 
-scripts.engine.core.store module
---------------------------------
+scripts.engine.core.queries module
+----------------------------------
 
-.. automodule:: scripts.engine.core.store
+.. automodule:: scripts.engine.core.queries
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

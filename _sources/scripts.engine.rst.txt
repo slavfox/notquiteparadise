@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    scripts.engine.core
+   scripts.engine.systems
    scripts.engine.ui
    scripts.engine.world_objects
 
@@ -42,6 +43,14 @@ scripts.engine.debug module
 ---------------------------
 
 .. automodule:: scripts.engine.debug
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.engine.dungen module
+----------------------------
+
+.. automodule:: scripts.engine.dungen
    :members:
    :undoc-members:
    :show-inheritance:
@@ -101,7 +110,6 @@ scripts.engine.world module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------
