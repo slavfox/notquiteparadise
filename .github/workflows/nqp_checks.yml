@@ -37,12 +37,10 @@ jobs:
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-win32.zip
           unzip pypy3.7-v7.3.2-win32.zip
           cd pypy3.7-v7.3.2-win32/
-          echo `pwd` >> $GITHUB_PATH
-          ln -s `pwd`/pypy3.exe `pwd`/python
-          pypy3.exe -m pip install --upgrade virtualenv
-          pypy3.exe -m virtualenv ../civenv/
-          call ../civenv/Scripts/activate.bat
-          pypy3.exe -m pip cache dir > ../pip_cache_dir.txt
+          echo $(pwd) >> $GITHUB_PATH
+          ln -s $(pwd)/pypy3.exe $(pwd)/python
+          ./pypy3.exe -m ensurepip
+          ./pypy3.exe -m pip cache dir > ../pip_cache_dir.txt
 
       - name: Get pypy37 on Ubuntu
         if: ${{ matrix.python-version == 'pypy37' && matrix.os == 'ubuntu-latest' }}
@@ -51,10 +49,8 @@ jobs:
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-linux64.tar.bz2
           tar -xf pypy3.7-v7.3.2-linux64.tar.bz2
           cd pypy3.7-v7.3.2-linux64/bin/
-          echo `pwd` >> $GITHUB_PATH
-          ./pypy3 -m pip install --upgrade virtualenv
-          ./pypy3 -m virtualenv ../civenv/
-          ../civenv/bin/activate
+          echo $(pwd) >> $GITHUB_PATH
+          ./pypy3 -m ensurepip
           ./pypy3 -m pip cache dir > ../pip_cache_dir.txt
 
       - name: Locate Pip Cache
