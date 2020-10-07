@@ -3,7 +3,7 @@ name: NQP - Checks
 
 on:
   pull_request:
-    types: [ opened, edited, synchronize ]
+    types: [opened, edited, synchronize]
   push:
     branches:
       - '!develop'
@@ -14,9 +14,10 @@ on:
 jobs:
   build:
     name: Checks
-    matrix:
-      os: [ubuntu-latest, windows-latest]
-      python-version: [3.8, pypy37]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: [3.8, pypy37]
 
     runs-on: ${{ matrix.os }}
 
