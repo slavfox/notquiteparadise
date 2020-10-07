@@ -30,6 +30,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Set pip cache dir on 3.8
+        if: ${{ matrix.python-version == '3.8' }}
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip cache dir > vendor/pip_cache_dir.txt
+
       - name: Get pypy37 on Windows
         if: ${{ matrix.python-version == 'pypy37' && matrix.os == 'windows-latest' }}
         run: |
@@ -56,13 +62,7 @@ jobs:
       - name: Locate Pip Cache
         id: pip-cache
         run: |
-          python -m pip install --upgrade pip
-          if test -f vendor/pip_cache_dir.txt
-          then
-            PIP_CACHE_DIR=$(< pip_cache_dir.txt)
-          else
-            PIP_CACHE_DIR=$(python -m pip cache dir)
-          fi
+          PIP_CACHE_DIR=$(cat pip_cache_dir.txt)
           echo "::set-output name=dir::$PIP_CACHE_DIR"
 
       - name: Cache dependencies
