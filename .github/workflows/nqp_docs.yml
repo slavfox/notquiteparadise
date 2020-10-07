@@ -34,15 +34,15 @@ jobs:
           sudo apt-get install python-sphinx
           python -m pip install --upgrade poetry
           poetry config virtualenvs.create false
-          poetry install --no-root
+          poetry install --no-root -E docs
 
-      - name: Build Docs
+      - name: Build docs
         run: |
           sphinx-apidoc -o ./docs .
           cd docs
           sphinx-build -a -E --keep-going . _build
 
-      - name: Deploy Docs
+      - name: Deploy docs
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
