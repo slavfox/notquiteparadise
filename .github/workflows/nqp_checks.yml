@@ -42,7 +42,7 @@ jobs:
           cd vendor/
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-win32.zip
           unzip pypy3.7-v7.3.2-win32.zip
-          ln -s pypy3.7-v7.3.2-win32/pypy3.exe python.exe
+          ln -s pypy3.7-v7.3.2-win32/pypy3.exe ./python.exe
           ./python.exe -m ensurepip -U
 
       - name: Get pypy37 on Ubuntu
@@ -51,7 +51,7 @@ jobs:
           cd vendor/
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-linux64.tar.bz2
           tar -xf pypy3.7-v7.3.2-linux64.tar.bz2
-          ln -sf $(pwd)/pypy3.7-v7.3.2-linux64/pypy3.exe $(pwd)/python.exe
+          ln -sf $(pwd)/pypy3.7-v7.3.2-linux64/pypy3.exe ./python.exe
           ./python.exe -m ensurepip -U
 
       - name: Locate Pip Cache
