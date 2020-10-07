@@ -32,7 +32,7 @@ jobs:
 
       - name: Add python symlink on Windows
         if: ${{ matrix.os == 'windows-latest' }}
-        run: ln -s ./python $(which python)
+        run: ln -s $(which python) ./python
 
       - name: Add python symlink on Ubuntu
         if: ${{ matrix.os == 'windows-latest' }}
@@ -45,7 +45,7 @@ jobs:
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-win32.zip
           unzip pypy3.7-v7.3.2-win32.zip
           rm -f ./python
-          ln -s ./python pypy3.7-v7.3.2-win32/pypy3.exe
+          ln -s pypy3.7-v7.3.2-win32/pypy3.exe ./python
           ./python -m ensurepip
 
       - name: Get pypy37 on Ubuntu
