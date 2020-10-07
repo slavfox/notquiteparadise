@@ -42,11 +42,10 @@ jobs:
           pypy3.exe -m pip install --upgrade virtualenv
           pypy3.exe -m virtualenv ../civenv/
           call ../civenv/Scripts/activate.bat
-          echo "::set-output name=dir::$(python -m pip cache dir)"
+          pypy3.exe -m pip cache dir > ../pip_cache_dir.txt
 
       - name: Get pypy37 on Ubuntu
         if: ${{ matrix.python-version == 'pypy37' && matrix.os == 'ubuntu-latest' }}
-        id: pip-cache
         run: |
           cd vendor/
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-linux64.tar.bz2
@@ -56,14 +55,19 @@ jobs:
           ./pypy3 -m pip install --upgrade virtualenv
           ./pypy3 -m virtualenv ../civenv/
           ../civenv/bin/activate
-          echo "::set-output name=dir::$(python -m pip cache dir)"
+          ./pypy3 -m pip cache dir > ../pip_cache_dir.txt
 
-      - name: Locate Pip Cache on 3.8
-        if: ${{ matrix.python-version == '3.8' }}
+      - name: Locate Pip Cache
         id: pip-cache
         run: |
           python -m pip install --upgrade pip
-          echo "::set-output name=dir::$(python -m pip cache dir)"
+          if test -f vendor/pip_cache_dir.txt
+          then
+            PIP_CACHE_DIR=$(< pip_cache_dir.txt)
+          else
+            PIP_CACHE_DIR=$(python -m pip cache dir)
+          fi
+          echo "::set-output name=dir::$PIP_CACHE_DIR"
 
       - name: Cache dependencies
         uses: actions/cache@v2
