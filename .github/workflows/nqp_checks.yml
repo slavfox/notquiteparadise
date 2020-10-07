@@ -35,10 +35,10 @@ jobs:
           cd vendor/
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-win32.zip
           unzip pypy3.7-v7.3.2-win32.zip
-          cd pypy3.7-v7.3.2-win32.zip/
+          cd pypy3.7-v7.3.2-win32/
           echo ${{ env.working-directory }} >> $GITHUB_PATH
           ln -s ${{ env.working-directory }}/pypy3.exe ${{ env.working-directory }}/python
-          pypy3.exe -m pip install --upgrade virtualenv
+          pypy3.exe -m pip install --upgrade pip virtualenv
           pypy3.exe -m virtualenv ../civenv/
           call ../civenv/Scripts/activate.bat
 
@@ -69,16 +69,16 @@ jobs:
 
       - name: Check code formatting
         run: |
-          poetry run python -m black --check scripts/
+          poetry run black --check scripts/
 
       - name: mypy Type Check
         if: ${{ matrix.python-version == '3.8' }}
         run: |
-          poetry run python -m mypy scripts/
+          poetry run mypy scripts/
 
       - name: Pytest with Coverage
         run: |
-          poetry run python -m pytest --cov=nqp
+          poetry run pytest --cov=nqp
 
       - name: Check Docs Build
         run: |
