@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import random
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Dict, Iterator, List, Literal
+from typing import TYPE_CHECKING, Dict, Iterator, List
 
 import tcod
 
@@ -38,7 +38,7 @@ class DungeonGenerator:
     border_size = 4  # tiles to place around the outside of the map
 
     # info accessed via property but only created once requested
-    _passable_map: List[List[Literal[True]]] = field(default_factory=list)
+    _passable_map: List[List[bool]] = field(default_factory=list)
     _bools_map: List[List[bool]] = field(default_factory=list)
     _tiles_map: List[List[Tile]] = field(default_factory=list)
 
@@ -207,11 +207,11 @@ class DungeonGenerator:
         return self._bools_map
 
     @property
-    def passable_map(self) -> List[List[Literal[True]]]:
+    def passable_map(self) -> List[List[bool]]:
         """
         2d array of True, matching map size
         """
-        passable_map: List[List[Literal[True]]] = []
+        passable_map: List[List[bool]] = []
         width = self.map_data.width
         height = self.map_data.height
 

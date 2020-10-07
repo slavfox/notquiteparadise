@@ -2,30 +2,42 @@
 name = "notquiteparadise"
 version = "0.1.0"
 description = ""
+license = "MIT"
+repository = "https://github.com/snayff/notquiteparadise"
 authors = ["Snayff"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 snecs = "^1.2.1"
 pygame = "2.0.0dev10"
 pygame-gui = "^0.5.6"
 pytweening = "^1.0.3"
 tcod = "^11.13.1"
-scipy = "^1.4.1"
+# extras
+sphinx = { version = "^3.0.4", optional = true }
+sphinx_autodoc_typehints = { version = "^1.11.0", optional = true }
+sphinx-autodoc-annotation = { version = "^1.0-1", optional = true }
+sphinx-git = { version = "^11.0.0", optional = true }
+sphinx-rtd-theme = { version = "^0.5.0", optional = true }
 
 [tool.poetry.dev-dependencies]
-sphinx = "^3.0.4"
-mypy = "^0.780"
+mypy = { version = "^0.780", markers = "platform_python_implementation == 'cpython'" }
 vulture = "^1.5"
 isort = "^4.3.21"
-black = "^19.10b0"
+black = { version = "^19.10b0", markers = "platform_python_implementation == 'cpython'" }
 pytest = "^5.4.3"
 pytest-cov = "^2.10.1"
-sphinx_autodoc_typehints = "^1.11.0"
-sphinx-autodoc-annotation = "^1.0-1"
-sphinx-autodoc-typehints = "^1.11.0"
-sphinx-git = "^11.0.0"
-sphinx-rtd-theme = "^0.5.0"
+# poetry sometimes nukes itself under pypy, uninstalling its own dependency
+virtualenv = { version = "^20.0.33", markers = "platform_python_implementation != 'cpython'" }
+
+[tool.poetry.extras]
+docs = [
+    "sphinx",
+    "sphinx-autodoc-typehints",
+    "sphinx-autodoc-annotation",
+    "sphinx-git",
+    "sphinx-rtd-theme"
+]
 
 [tool.black]
 target-version = ['py37']
