@@ -61,9 +61,7 @@ jobs:
 
       - name: Locate Pip Cache
         id: pip-cache
-        run: |
-          PIP_CACHE_DIR=$(cat vendor/pip_cache_dir.txt)
-          echo "::set-output name=dir::$PIP_CACHE_DIR"
+        run: echo "::set-output name=dir::$(cat vendor/pip_cache_dir.txt)"
 
       - name: Cache dependencies
         uses: actions/cache@v2
