@@ -34,8 +34,8 @@ jobs:
         run: |
           cd vendor/
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-win32.zip
-          unzip pypy3.7-v7.3.2-win32.zip pypy37
-          cd pypy37/
+          unzip pypy3.7-v7.3.2-win32.zip
+          cd pypy3.7-v7.3.2-win32.zip/
           echo ${{ env.working-directory }} >> $GITHUB_PATH
           ln -s ${{ env.working-directory }}/pypy3.exe ${{ env.working-directory }}/python
           pypy3.exe -m pip install --upgrade virtualenv
@@ -44,7 +44,7 @@ jobs:
 
       - name: Locate Pip Cache
         id: pip-cache
-        run: echo "::set-output name=dir::$(pip cache dir)"
+        run: echo "::set-output name=dir::$(python -m pip cache dir)"
 
       - name: Cache dependencies
         uses: actions/cache@v2
@@ -52,6 +52,13 @@ jobs:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}
           restore-keys: ${{ runner.os }}-pip-
+
+      - name: Install Linux dependencies
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install libsdl2-dev
+          sudo apt-get install python-sphinx
 
       - name: Install dependencies
         run: |
