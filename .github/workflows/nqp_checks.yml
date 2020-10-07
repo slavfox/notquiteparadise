@@ -35,7 +35,7 @@ jobs:
         run: ln -s $(which python) ./python
 
       - name: Add python symlink on Ubuntu
-        if: ${{ matrix.os == 'windows-latest' }}
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: ln -s $(which python) ./python
 
       - name: Get pypy37 on Windows
