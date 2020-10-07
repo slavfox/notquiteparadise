@@ -42,7 +42,6 @@ jobs:
           cd vendor/
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-win32.zip
           unzip pypy3.7-v7.3.2-win32.zip
-          rm -f ./python
           ln -s pypy3.7-v7.3.2-win32/pypy3.exe ./python
           ./python -m ensurepip
 
