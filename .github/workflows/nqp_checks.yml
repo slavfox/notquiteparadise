@@ -34,7 +34,7 @@ jobs:
         if: ${{ matrix.python-version == '3.8' }}
         run: |
           python -m pip install --upgrade pip
-          ln -s $(which python) ./python
+          ln -s $(which python) ./python.exe
 
       - name: Get pypy37 on Windows
         if: ${{ matrix.python-version == 'pypy37' && matrix.os == 'windows-latest' }}
@@ -42,8 +42,8 @@ jobs:
           cd vendor/
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-win32.zip
           unzip pypy3.7-v7.3.2-win32.zip
-          ln -s pypy3.7-v7.3.2-win32/pypy3.exe ./python
-          ./python -m ensurepip
+          ln -s pypy3.7-v7.3.2-win32/pypy3.exe ./python.exe
+          ./python.exe -m ensurepip -U
 
       - name: Get pypy37 on Ubuntu
         if: ${{ matrix.python-version == 'pypy37' && matrix.os == 'ubuntu-latest' }}
@@ -51,11 +51,12 @@ jobs:
           cd vendor/
           curl -L -O https://downloads.python.org/pypy/pypy3.7-v7.3.2-linux64.tar.bz2
           tar -xf pypy3.7-v7.3.2-linux64.tar.bz2
-          ln -sf pypy3.7-v7.3.2-linux64/pypy3.exe ./python
+          ln -sf pypy3.7-v7.3.2-linux64/pypy3.exe ./python.exe
+          ./python.exe -m ensurepip -U
 
       - name: Locate Pip Cache
         id: pip-cache
-        run: echo "::set-output name=dir::$(python -m pip cache dir)"
+        run: echo "::set-output name=dir::$(./python.exe -m pip cache dir)"
 
       - name: Cache dependencies
         uses: actions/cache@v2
@@ -73,23 +74,23 @@ jobs:
 
       - name: Install dependencies
         run: |
-          ./python -V
-          ./python -m pip install --upgrade poetry
-          ./python -m poetry config virtualenvs.create false
-          ./python -m poetry install --no-root -E docs
+          ./python.exe -V
+          ./python.exe -m pip install --upgrade poetry
+          ./python.exe -m poetry config virtualenvs.create false
+          ./python.exe -m poetry install --no-root -E docs
 
       - name: Check code formatting
         run: |
-          ./python -m black --check scripts/
+          ./python.exe -m black --check scripts/
 
       - name: mypy Type Check
         if: ${{ matrix.python-version == '3.8' }}
         run: |
-          ./python -m mypy scripts/
+          ./python.exe -m mypy scripts/
 
       - name: Pytest with Coverage
         run: |
-          ./python -m pytest --cov=nqp
+          ./python.exe -m pytest --cov=nqp
 
       - name: Check Docs Build
         run: |
